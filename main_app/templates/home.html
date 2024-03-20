@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h4>About</h4>
+<div class="container d-flex min-vh-100 justify-content-center align-items-center" >
 
-<p>
-    write example of about here!
-</p>
+    <div class=""> 
+        
+        <h4 class="text-light">About</h4>
+    
+        <p class="text-light">
+            write example of about here!
+        </p>
+        
+        <br>
+        
+        <li><a href="{% url 'user' %}">Login/Register</a></li> 
 
-<br>
+    </div>
 
-<li><a href="{% url 'user' %}">Login/Register</a></li> 
+</div>
 
 {% endblock %}
