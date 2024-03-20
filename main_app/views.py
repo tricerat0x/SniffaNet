@@ -1,3 +1,11 @@
+from django.shortcuts import render, redirect
+
+# Create your views here.
+def home(request):
+    return render(request, 'home.html')
+
+def user(request):
+  return render(request, 'user.html')
 # main_app/views.py
 
 from django.shortcuts import render
@@ -35,3 +43,6 @@ def scan_devices(request):
         return JsonResponse({'message': 'Scan completed successfully'})
     
     return render(request, 'scan_devices.html')
+
+def reports(request):
+  return render(request, 'reports/index.html')
