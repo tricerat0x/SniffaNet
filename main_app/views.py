@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
-from .models import Report
+from .models import Report, User
 
 # Create your views here.
 # List of reports
@@ -24,4 +24,17 @@ class ReportCreate(CreateView):
 class ReportDelete(DeleteView):
     model = Report
     success_url = '/reports'
+
+
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id) #GETs userobject and assigns it to the "user" logged in 
+    return render(request, 'users/profile_detail.html', {'user': user})
+
+class ProfileDetail(DetailView):
+    model = User
+
+class ProfileUpdateView(UpdateView):
+    model = User
+    fields = ['username']
+    success_url = '/profile/'
 
