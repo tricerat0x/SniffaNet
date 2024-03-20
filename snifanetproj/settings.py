@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,8 +74,15 @@ WSGI_APPLICATION = 'snifanetproj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     # 'default': dj_database_url.config(default='postgres://localhost/useremails')
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://localhost/useremails')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'catcollector',
+    }
 }
 
 # Password validation
