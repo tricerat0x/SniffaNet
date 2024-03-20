@@ -20,13 +20,8 @@ def reports_detail(request, report_id):
 class ReportCreate(CreateView):
     model = Report 
     fields = ['scan', 'ip_address', 'mac_address', 'device_type', 'description',]
-    
-class ReportList(ListView):
-    model = Report
-
-class ReportDetail(DetailView):
-    model = Report
 
 class ReportDelete(DeleteView):
     model = Report
     success_url = '/reports'
+
