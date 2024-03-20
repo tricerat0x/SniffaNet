@@ -1,3 +1,5 @@
+# snifanetproj/urls.py
+
 """
 URL configuration for snifanetproj project.
 

@@ -1,0 +1,7 @@
+<!-- scan_button.html -->
+
+<form action="{% url 'perform_scan' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Perform Scan</button>
+  </form>
+  
