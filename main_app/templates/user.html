@@ -3,6 +3,56 @@
 
 <h1>User's Name</h1>
 <br>
-<button><i class="fa fa-barcode" aria-hidden="true"></i>SCAN FOR REPORT</button>
+<form id="scanForm">
+    <input type="text" id="ipAddress" name="ip_address" placeholder="Enter IP Address">
+    <button type="submit"><i class="fa fa-barcode" aria-hidden="true"></i> SCAN FOR REPORT</button>
+</form>
+
+<script>
+    // Add event listener for form submission
+    document.getElementById('scanForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        // Get the IP address from the input field
+        const ipAddress = document.getElementById('ipAddress').value;
+        
+        // Send an AJAX request to trigger the IP address scanning process
+        fetch('/scan_devices/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') // Include CSRF token for Django
+            },
+            body: JSON.stringify({ 'ip_address': ipAddress })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display the response message
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+
+                // Check if the cookie name matches the specified name
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 
 {% endblock %}
+
