@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Reports List</h1>
+
+{% if scan_results %}
+    <ul>
+    {% for scan_result in scan_results %}
+        <li>
+            IP Address: {{ scan_result.ip_address }}, 
+            Hostname: {{ scan_result.hostname }}, 
+            Operating System: {{ scan_result.os }}, 
+            Open Ports: {{ scan_result.open_ports }}
+            {% if scan_result.user == request.user %}
+                <a href="{% url 'scan_detail' scan_result.id %}">View Details</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No scan results available.</p>
+{% endif %}
+
+{% endblock %}
