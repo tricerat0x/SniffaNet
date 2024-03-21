@@ -3,6 +3,7 @@ from django.views.generic import DeleteView, DetailView, UpdateView
 from .models import Report, User, Scan
 
 # Create your views here.
+
 # List of reports
 def reports_index(request):
     reports = Report.objects.all()
@@ -10,7 +11,7 @@ def reports_index(request):
         'reports': reports
     })
 
-# Report details
+
 def reports_detail(request, report_id):
     report = Report.objects.get(id=report_id)
     return render(request, 'reports/detail.html', {
