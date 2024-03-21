@@ -18,6 +18,18 @@ def home(request):
     return render(request, 'home.html', context)
 
 @login_required
+def index(request):
+    return render(request, 'index.html')
+
+@login_required
+def detail(request):
+    return render(request, 'detail.html')
+
+@login_required
+def home(request):
+    return render(request, 'home.html')
+
+@login_required
 def home(request):
     return render(request, 'home.html')
 

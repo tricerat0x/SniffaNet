@@ -81,19 +81,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'snifanetproj.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': dj_database_url.config(default='postgres://localhost/useremails')
-# }
-
 DATABASES = {
    'default': dj_database_url.config(default='postgres://u9r3o4h4f8lhl1:p0dab3e0329435b9ff586a2379210e29a466af9ec930651c80af4666ac3c4b423@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d8chlqmjv1p285') }
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
