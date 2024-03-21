@@ -26,3 +26,4 @@ class ScanResult(models.Model):
             if user and isinstance(user, user_model):
                 self.user = user
         super().save(*args, **kwargs)
+    

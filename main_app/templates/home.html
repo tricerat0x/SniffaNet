@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container d-flex min-vh-100 justify-content-center align-items-center" >
+<div class="container d-flex min-vh-100 justify-content-center align-items-center">
 
-    <div class="about"> 
+    <div> 
         
         <h4 class="text-light">About:</h4>
     
@@ -14,8 +14,12 @@
         </p>
         
         <br>
-        
-        <li><a href="{% url 'user' %}">Login/Register</a></li> 
+        {% if request.user.is_authenticated  %}
+            <p class="text-light">User is authenticated.</p>
+        {% else %}
+            <p class="text-light">User is not authenticated.</p>
+        {% endif %}
+
 
     </div>
 
