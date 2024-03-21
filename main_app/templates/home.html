@@ -1,14 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h4>About</h4>
+<div class="container d-flex min-vh-100 justify-content-center align-items-center">
 
-<p>
-    write example of about here!
-</p>
+    <div> 
+        
+        <h4 class="text-light">About:</h4>
+    
+        <p class="text-light">
+            The SniffaNet platform is a comprehensive Network Scanning and Reporting System built with Django,
+            <br>
+            offering a free and open-source solution for security assessment.
+        </p>
+        
+        <br>
+        
+        <li>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ google_client_id }}&redirect_uri={{ google_redirect_uri|urlencode }}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=YOUR_RANDOM_STATE_STRING&access_type=offline&prompt=consent">Login/Register</a>
+        </li> 
 
-<br>
+    </div>
 
-<li><a href="{% url 'user' %}">Login/Register</a></li> 
+</div>
 
 {% endblock %}

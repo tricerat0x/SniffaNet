@@ -2,12 +2,20 @@
 
 import nmap3
 import xmltodict
+import os
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv46_address
 from main_app.models import ScanResult
 from django.contrib.auth.decorators import login_required
+
+def home(request):
+    context = {
+        'google_client_id': settings.GOOGLE_CLIENT_ID, #change to this in production: os.environ.get('GOOGLE_CLIENT_ID')
+        'google_redirect_uri': settings.GOOGLE_REDIRECT_URI, #os.environ.get('GOOGLE_REDIRECT_URI')
+    }
+    return render(request, 'home.html', context)
 
 @login_required
 def home(request):
