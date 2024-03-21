@@ -9,12 +9,15 @@ from django.core.validators import validate_ipv46_address
 from main_app.models import ScanResult
 from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def user(request):
     return render(request, 'user.html')
 
+@login_required
 def base(request):
     return render(request, 'base.html')
 
@@ -33,57 +36,40 @@ def scan_devices(request):
         user = request.user
 
         scanner = nmap3.NmapHostDiscovery()
-        result = scanner.nmap_no_portscan(ip_address, args="-PR -oX -") # -oX - outputs XML to stdout
+        result = scanner.nmap_no_portscan(ip_address, args="-O -oX -") # Include OS detection and output XML to stdout
         
         # Parse XML result
-        root = ET.fromstring(result)
-        scan_results = []
-        for host in root.findall('.//host'):
-            scanned_ip = host.find('address').attrib['addr']
-            hostname = host.find('hostnames/hostname').attrib.get('name', '')
-            os = host.find('os/osmatch').attrib.get('name', '')
-            ports = ','.join(port.attrib['portid'] for port in host.findall('.//port'))
-          
-        # Create a ScanResult object and save it
-            scan_result = ScanResult.objects.create(
-                user=user,
-                ip_address=scanned_ip,
-                hostname=hostname,
-                os=os,
-                open_ports=ports
-            )
-        
-        # Return JSON response
-        return JsonResponse({'scan_results': scan_results})
+        try:
+            parsed_result = xmltodict.parse(result)
+            hosts = parsed_result['nmaprun']['host']
+            scan_results = []
+            for host in hosts:
+                scanned_ip = host['address']['@addr']
+                hostname = host.get('hostnames', {}).get('hostname', {}).get('@name', '')
+                os = host.get('os', {}).get('osmatch', {}).get('@name', '')
+                # Filter out only necessary information for network topology
+                relevant_data = {
+                    'ip_address': scanned_ip,
+                    'hostname': hostname,
+                    'os': os,
+                }
+                scan_result = ScanResult.objects.create(
+                    user=user,
+                    **relevant_data
+                )
+                scan_results.append(scan_result)
+            
+            # Return JSON response
+            return JsonResponse({'scan_results': [scan_result.id for scan_result in scan_results]})
+        except KeyError:
+            return JsonResponse({'error': 'Error parsing XML result'})
     
     # Render the scan_devices.html template if request method is not POST
     return render(request, 'scan_devices.html')
 
 @login_required
 def reports(request):
-    
     user = request.user
     scan_results = ScanResult.objects.filter(user=user)
-    
-    # Pass the scan results to the template for rendering
     return render(request, 'reports.html', {'scan_results': scan_results})
 
-def detail(request):
-    # Placeholder for detail view logic
-    return render(request, 'detail.html')
-
-def index(request):
-    # Placeholder for index view logic
-    return render(request, 'reports.html')
-
-def create_report(request):
-    # Placeholder for create report view logic
-    return render(request, 'create_report.html')
-
-def delete_report(request):
-    # Placeholder for delete report view logic
-    return render(request, 'delete_report.html')
-
-def search_devices(request):
-    # Placeholder for search devices view logic
-    return render(request, 'search_devices.html')
