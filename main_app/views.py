@@ -3,6 +3,7 @@
 import nmap3
 import os
 import xmltodict
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
@@ -12,7 +13,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout  # Remove unnecessary import
 from django.conf import settings
 
-@login_required
+def oauth2_callback(request):
+    return HttpResponse("OAuth2 callback view")
+
 def home(request):
     context = {
         'google_client_id': settings.GOOGLE_CLIENT_ID,
@@ -20,23 +23,23 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
-@login_required
+
 def index(request):
     return render(request, 'index.html')
 
-@login_required
+
 def detail(request):
     return render(request, 'detail.html')
 
-@login_required
+
 def user(request):
     return render(request, 'user.html')
 
-@login_required
+
 def base(request):
     return render(request, 'base.html')
 
-@login_required
+
 def scan_devices(request):
     if request.method == 'POST':
         ip_address = request.POST.get('ip_address')
@@ -83,13 +86,13 @@ def scan_devices(request):
     # Render the scan_devices.html template if request method is not POST
     return render(request, 'scan_devices.html')
 
-@login_required
+
 def reports(request):
     user = request.user
     scan_results = ScanResult.objects.filter(user=user)
     return render(request, 'reports.html', {'scan_results': scan_results})
 
-@login_required
+
 def delete_profile(request):
     if request.method == 'POST':
         # Delete the user's profile

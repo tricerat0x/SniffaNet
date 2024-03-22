@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('user/', views.user, name='user'),
     path('reports/', views.index, name='reports'),
+    path('oauth2callback/', views.oauth2_callback, name='oauth2callback'),
     path('', views.home, name='home'),
 ]
