@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<nav>
+    <ul>
+        <li><a href="{% url 'user' %}">Back to User</a></li>
+    </ul>
+</nav>
 
-<li><a href="{% url 'user' %}">Back to User</a></li> 
-<h1><i class="fa fa-list-alt" aria-hidden="true"></i>Report List</h1>
-
-
-
-
-
+<main>
+    <h1><i class="fa fa-list-alt" aria-hidden="true"></i> Report List</h1>
+    <ul>
+        {% for report in reports %}
+            <li>{{ report }}</li>  <!-- Adjust this to display report details -->
+        {% empty %}
+            <li>No reports available.</li>
+        {% endfor %}
+    </ul>
+</main>
 {% endblock %}

@@ -1,21 +1,22 @@
 # main_app/views.py
 
 import nmap3
-import xmltodict
 import os
+import xmltodict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv46_address
 from main_app.models import ScanResult
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout  # Remove unnecessary import
 from django.conf import settings
 
+@login_required
 def home(request):
     context = {
-        'google_client_id': settings.GOOGLE_CLIENT_ID, #change to this in production: os.environ.get('GOOGLE_CLIENT_ID')
-        'google_redirect_uri': settings.GOOGLE_REDIRECT_URI, #os.environ.get('GOOGLE_REDIRECT_URI')
+        'google_client_id': settings.GOOGLE_CLIENT_ID,
+        'google_redirect_uri': settings.GOOGLE_REDIRECT_URI,
     }
     return render(request, 'home.html', context)
 
@@ -26,10 +27,6 @@ def index(request):
 @login_required
 def detail(request):
     return render(request, 'detail.html')
-
-@login_required
-def home(request):
-    return render(request, 'home.html')
 
 @login_required
 def user(request):
@@ -65,6 +62,7 @@ def scan_devices(request):
                 scanned_ip = host['address']['@addr']
                 hostname = host.get('hostnames', {}).get('hostname', {}).get('@name', '')
                 os = host.get('os', {}).get('osmatch', {}).get('@name', '')
+                
                 # Filter out only necessary information for network topology
                 relevant_data = {
                     'ip_address': scanned_ip,
@@ -77,10 +75,10 @@ def scan_devices(request):
                 )
                 scan_results.append(scan_result)
             
-            # Return JSON response
-            return JsonResponse({'scan_results': [scan_result.id for scan_result in scan_results]})
+            # Redirect to reports page after successful scan
+            return redirect('reports')
         except KeyError:
-            return JsonResponse({'error': 'Error parsing XML result'})
+            return render(request, 'scan_devices.html', {'error': 'Error parsing XML result'})
     
     # Render the scan_devices.html template if request method is not POST
     return render(request, 'scan_devices.html')
@@ -90,4 +88,16 @@ def reports(request):
     user = request.user
     scan_results = ScanResult.objects.filter(user=user)
     return render(request, 'reports.html', {'scan_results': scan_results})
+
+@login_required
+def delete_profile(request):
+    if request.method == 'POST':
+        # Delete the user's profile
+        request.user.delete()
+        # Log out the user after deleting the profile
+        logout(request)
+        # Redirect to home page after successful deletion
+        return redirect('home')
+    return render(request, 'delete_profile.html')
+
 

@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<nav>
+    <ul>
+        <li><a href="{% url 'user' %}">Back to User</a></li>
+    </ul>
+</nav>
 
-
-
-
+<main>
+    <h1><i class="fa fa-file-text" aria-hidden="true"></i> Report Detail</h1>
+    <div>
+        <!-- Display detailed information about the report -->
+        <p><strong>Report ID:</strong> {{ report.id }}</p>
+        <p><strong>IP Address:</strong> {{ report.ip_address }}</p>
+        <p><strong>Hostname:</strong> {{ report.hostname }}</p>
+        <!-- Add more details as needed -->
+    </div>
+</main>
 {% endblock %}
-
