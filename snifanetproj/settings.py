@@ -82,7 +82,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'snifanetproj.wsgi.application'
 
 DATABASES = {
-   'default': dj_database_url.config(default='postgres://u9r3o4h4f8lhl1:p0dab3e0329435b9ff586a2379210e29a466af9ec930651c80af4666ac3c4b423@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d8chlqmjv1p285') }
+  'default': dj_database_url.config(default='postgres://u9r3o4h4f8lhl1:p0dab3e0329435b9ff586a2379210e29a466af9ec930651c80af4666ac3c4b423@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d8chlqmjv1p285') }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -151,3 +152,5 @@ SOCIALACCOUNT_PROVIDERS = {
 
 GOOGLE_CLIENT_ID = '1064499109577-15vlnd0rvamv0opdbomkg4a9j3rsgv5m.apps.googleusercontent.com'
 GOOGLE_REDIRECT_URI = 'http://localhost:8000/oauth2callback'
+
+LOGIN_REDIRECT_URL = 'user'

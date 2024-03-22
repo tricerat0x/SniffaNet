@@ -9,6 +9,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv46_address
 from main_app.models import ScanResult
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.conf import settings
 
 def home(request):
     context = {
@@ -24,10 +26,6 @@ def index(request):
 @login_required
 def detail(request):
     return render(request, 'detail.html')
-
-@login_required
-def home(request):
-    return render(request, 'home.html')
 
 @login_required
 def home(request):

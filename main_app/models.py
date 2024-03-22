@@ -26,3 +26,17 @@ class ScanResult(models.Model):
             if user and isinstance(user, user_model):
                 self.user = user
         super().save(*args, **kwargs)
+
+class Report(models.Model):
+    device_id = models.AutoField(primary_key=True)
+    scan = models.ForeignKey(Scan, on_delete=models.CASCADE)
+    ip_address = models.CharField(max_length=100)
+    mac_address = models.CharField(max_length=50)
+    device_type = models.CharField(max_length=100)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Report {self.device_id}"
+    
+    
