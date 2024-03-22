@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container d-flex min-vh-100 justify-content-center align-items-center">
+
+    <div> 
+        
+        <h4 class="text-light">About:</h4>
+    
+        <p class="text-light">
+            The SniffaNet platform is a comprehensive Network Scanning and Reporting System built with Django,
+            <br>
+            offering a free and open-source solution for security assessment.
+        </p>
+        
+        <br>
+        {% if request.user.is_authenticated  %}
+            <p class="text-light">User is authenticated.</p>
+        {% else %}
+            <p class="text-light">User is not authenticated.</p>
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Scan(models.Model):
@@ -13,7 +14,9 @@ class User(models.Model):
     def __str__(self):
         return self.username
     
-    
+# User profile extended
+class User_Report(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
 class Report(models.Model):
     device_id = models.AutoField(primary_key=True)
@@ -23,7 +26,7 @@ class Report(models.Model):
     device_type = models.CharField(max_length=100)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     
     def __str__(self):
         return f"Report {self.device_id}"
