@@ -9,18 +9,17 @@ import os #MAKE SURE TO IMPORT 'os' TO VIEWS.PY
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .models import ScanResult
+from django.contrib.auth import logout
 
 
 
 #MAKE SURE TO ADD THIS ADDITIONAL CODE FOR DEF HOME(REQUEST): TO THE PRODUCTION APP
 def home(request):
-    context = {
-        'user': request.user,
-        'google_client_id': settings.GOOGLE_CLIENT_ID, #change to this in production: os.environ.get('GOOGLE_CLIENT_ID')
-        'google_redirect_uri': settings.GOOGLE_REDIRECT_URI, #os.environ.get('GOOGLE_REDIRECT_URI')
-    }
-    print(request.user.is_authenticated)
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 def user(request):
     return render(request, 'user.html')

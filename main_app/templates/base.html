@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %} 
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +31,7 @@
             </button>
              <div class="collapse navbar-collapse " id="navbarSupportedContent">                
                  <ul class="navbar-nav me-0 ms-auto mb-2 mb-lg-0">
-                  {% if request.user.is_authenticated  %}
+                  {% if user.is_authenticated  %}
 
                   <li class="nav-item">
                     <a class="nav-link  " href="{% url 'user' %}">Scan </a>
@@ -41,12 +43,12 @@
 
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link " href="{% url 'home' %}">Logout &nbsp; <img class="glogo" src="https://i.imgur.com/FHjYyi0.png"></a>
+                    <a class="nav-link " href="logout">Logout &nbsp; <img class="glogo" src="https://i.imgur.com/FHjYyi0.png"></a>
                   </li>
                   {% else %}
                   
                   <li class="nav-item">
-                    <a class="nav-link" href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ google_client_id }}&redirect_uri={{ google_redirect_uri|urlencode }}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=YOUR_RANDOM_STATE_STRING&access_type=offline&prompt=consent">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}?next=/">
                       <img class="glogo" src="https://i.imgur.com/FHjYyi0.png">
                       Login/Register</a>
                   </li>

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 # import dj_database_url
 from pathlib import Path
 import dj_database_url
-import os
 
 
 
@@ -48,6 +47,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+SITE_ID = 2
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,9 +102,9 @@ WSGI_APPLICATION = 'snifanetproj.wsgi.application'
 #     'default': dj_database_url.config(default='postgres://localhost/useremails')
 # }
 
-# DATABASES = {
-#    'default': dj_database_url.config(default='postgres://u9r3o4h4f8lhl1:p0dab3e0329435b9ff586a2379210e29a466af9ec930651c80af4666ac3c4b423@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d8chlqmjv1p285') }
-
+DATABASES = {
+   'default': dj_database_url.config(default='postgres://uo4id9h6av0iu:p42dfbccd127d6bd1c2892dc65439bac4ea224f081e82473474f3337c94bd9242@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d94dt03gmj6f54')
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -135,30 +148,12 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SITE_ID = 1
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'APP': {
-            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
-            'secret': os.getenv('GOOGLE_SECRET'),
-            'key': ''
-        }
-    }
-}
-
-GOOGLE_CLIENT_ID = '1064499109577-15vlnd0rvamv0opdbomkg4a9j3rsgv5m.apps.googleusercontent.com'
-GOOGLE_REDIRECT_URI = 'http://localhost:8000/oauth2callback'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
