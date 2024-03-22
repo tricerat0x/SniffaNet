@@ -1,14 +1,19 @@
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  min-height: 100vh !important;
+  background-image: url('https://storydoc.mo.cloudinary.net/prd/36a3a2a42b5b702f/2f1b13a6-5730-49b2-ba92-b6977795eb9f?tx=f_auto');
+  background-size: cover;
 }
 
-main {
-  flex: 1 0 auto;
+.navbar-toggler{
+  background-color: rgb(129, 133, 137) !important;
 }
 
-footer.page-footer {
-  padding-top: 0;
-  text-align: right;
+.nav-link {
+  display: flex !important;
+  justify-content: end ;
+  color: white !important;
+}
+
+.glogo {
+  height: 20px !important;
 }

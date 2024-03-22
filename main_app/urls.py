@@ -1,16 +1,14 @@
-# main_app/urls.py
-
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('logout', views.logout_view),
     path('user/', views.user, name='user'),
-    path('reports/', views.reports, name='reports'),  # Fixed'ish the URL pattern to point to the reports view?
-    path('reports/<int:report_id>/', views.detail, name='reports_detail'),
-    path('scan_devices/', views.scan_devices, name='scan_devices'),
-    # path('profile/delete/', views.delete_profile, name='delete_profile'),  
-    path('', include('main_app.urls')),
+    path('reports/', views.reports, name='reports'),
+    path('scan-devices/', views.scan_devices, name='scan_devices'),  # Updated URL pattern
+    path('scan-detail/<int:scan_result_id>/', views.scan_detail, name='scan_detail'),
 ]
+
 
 

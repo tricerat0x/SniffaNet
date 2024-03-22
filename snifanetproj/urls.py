@@ -21,10 +21,8 @@ from django.urls import path, include
 from main_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+   path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('user/', views.user, name='user'),
-    path('reports/', views.index, name='reports'),
-    path('oauth2callback/', views.oauth2_callback, name='oauth2callback'),
-    path('', views.home, name='home'),
+    path('', include('main_app.urls')),
 ]
+    

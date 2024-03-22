@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Detail</title>
+    <!-- Add any CSS styles or external libraries you need -->
+</head>
+<body>
+    <h1>Scan Detail</h1>
+    <p><strong>IP Address:</strong> {{ scan_result.ip_address }}</p>
+    <p><strong>Hostname:</strong> {{ scan_result.hostname }}</p>
+    <p><strong>Operating System:</strong> {{ scan_result.os }}</p>
+    <p><strong>Open Ports:</strong> {{ scan_result.open_ports }}</p>
+    <!-- Add any additional details you want to display -->
+
+    <!-- Optionally, include links or buttons for actions related to this scan result -->
+    <a href="{% url 'reports' %}">Back to Reports</a>
+</body>
+</html>

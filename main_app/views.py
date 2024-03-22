@@ -1,35 +1,24 @@
-# main_app/views.py
-
+import xmltodict
 import nmap3
 import os
-import xmltodict
-from django.http import HttpResponse
+import subprocess
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv46_address
-from main_app.models import ScanResult
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout  # Remove unnecessary import
 from django.conf import settings
+from .models import ScanResult
+from django.contrib.auth import logout
 
-def oauth2_callback(request):
-    return HttpResponse("OAuth2 callback view")
 
 def home(request):
-    context = {
-        'google_client_id': settings.GOOGLE_CLIENT_ID,
-        'google_redirect_uri': settings.GOOGLE_REDIRECT_URI,
-    }
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
-def detail(request):
-    return render(request, 'detail.html')
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def user(request):
@@ -39,6 +28,11 @@ def user(request):
 def base(request):
     return render(request, 'base.html')
 
+
+def scan_detail(request, scan_result_id):
+    # Retrieve the scan result object
+    scan_result = ScanResult.objects.get(id=scan_result_id)
+    return render(request, 'scan_detail.html', {'scan_result': scan_result})
 
 def scan_devices(request):
     if request.method == 'POST':
@@ -53,24 +47,27 @@ def scan_devices(request):
         # Get the currently logged-in user
         user = request.user
 
-        scanner = nmap3.NmapHostDiscovery()
-        result = scanner.nmap_no_portscan(ip_address, args="-O -oX -") # Include OS detection and output XML to stdout
+        # Execute Nmap scan command
+        scan_command = ['/usr/bin/nmap', '-sn', '-oX', '-']
+        result = subprocess.run(scan_command, input=ip_address, capture_output=True, text=True)
+        
+        # Check if the Nmap command was successful
+        if result.returncode != 0:
+            return render(request, 'scan_devices.html', {'error': 'Error executing Nmap command'})
         
         # Parse XML result
         try:
-            parsed_result = xmltodict.parse(result)
+            parsed_result = xmltodict.parse(result.stdout)
             hosts = parsed_result['nmaprun']['host']
             scan_results = []
             for host in hosts:
                 scanned_ip = host['address']['@addr']
                 hostname = host.get('hostnames', {}).get('hostname', {}).get('@name', '')
-                os = host.get('os', {}).get('osmatch', {}).get('@name', '')
                 
                 # Filter out only necessary information for network topology
                 relevant_data = {
                     'ip_address': scanned_ip,
                     'hostname': hostname,
-                    'os': os,
                 }
                 scan_result = ScanResult.objects.create(
                     user=user,
@@ -87,7 +84,9 @@ def scan_devices(request):
     return render(request, 'scan_devices.html')
 
 
+
 def reports(request):
+    # Fetch the scan results associated with the logged-in user
     user = request.user
     scan_results = ScanResult.objects.filter(user=user)
     return render(request, 'reports.html', {'scan_results': scan_results})
@@ -102,5 +101,3 @@ def delete_profile(request):
         # Redirect to home page after successful deletion
         return redirect('home')
     return render(request, 'delete_profile.html')
-
-

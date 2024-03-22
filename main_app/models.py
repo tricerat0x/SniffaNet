@@ -30,4 +30,12 @@ class Report(models.Model):
     def __str__(self):
         return f"Report for {self.device_type} at {self.ip_address}"
     
+    def save(self, *args, **kwargs):
+        # Set the user field to the current logged-in user if available
+        if not self.user_id:
+            user_model = get_user_model()
+            user = kwargs.pop('user', None)
+            if user and isinstance(user, user_model):
+                self.user = user
+        super().save(*args, **kwargs)
     
