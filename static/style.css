@@ -42,7 +42,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh; /* Adjust as needed */
-  color: white !important;
+  color: white
 }
 
 .page-title {
@@ -52,8 +52,4 @@ body {
 .signup-form {
   width: 300px; /* Set a fixed width for the form */
   max-width: 100%; /* Ensure the form doesn't exceed the container's width */
-}
-
-.btn {
-  color : white;
 }
