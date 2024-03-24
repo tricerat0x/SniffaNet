@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('logout', views.logout_view),
+    path('logout', views.logout_view, name='logout'),
     path('user/', views.user, name='user'),
     path('reports/', views.reports, name='reports'),
     path('scan-devices/', views.scan_devices, name='scan_devices'),  # Updated URL pattern

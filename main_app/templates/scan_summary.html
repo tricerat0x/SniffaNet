@@ -1,13 +1,6 @@
-<!-- scan_summary.html -->
+{% extends 'base.html' %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan Summary</title>
-</head>
-<body>
     <h1>Scan Summary</h1>
     <p>Number of hosts scanned: {{ num_hosts_scanned }}</p>
     <p>IP Address: {{ summary.ip_address }}</p>
@@ -18,5 +11,5 @@
         <li>{{ past_scan.ip_address }} - {{ past_scan.scan_date }}</li>
     {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock %}

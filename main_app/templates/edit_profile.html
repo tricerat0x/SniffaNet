@@ -6,7 +6,7 @@
     <h2>Edit Profile</h2>
     <form method="post">
         {% csrf_token %}
-        <label for="username">Username:</label><br>
+        <label class="text-light" for="username">Username:</label><br>
         <input type="text" id="username" name="username" value="{{ user.username }}"><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" value="{{ user.email }}"><br>

@@ -1,4 +1,6 @@
-<!-- scan_devices.html -->
+{% extends 'base.html' %}
+{% block content %}
+
 <form id="scanForm">
   <label for="ipAddress">Enter IP Address:</label>
   <input type="text" id="ipAddress" name="ip_address" />
@@ -38,3 +40,5 @@
       xhr.send("ip_address=" + encodeURIComponent(ipAddress));
     });
 </script>
+
+{% endblock %}
