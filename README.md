@@ -16,9 +16,9 @@ Report List displays the list of IP Scans of SniffaNet, at this time there are n
 
 
 ### Libraries, Frameworks & Editors
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![Bootstrap](https://getbootstrap.com/)
-
+[MongoDB](https://www.mongodb.com)
+[Bootstrap](https://getbootstrap.com)
+[Django](https://www.djangoproject.com/)
 
 ### Version Control
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
