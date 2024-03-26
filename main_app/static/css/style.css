@@ -17,3 +17,7 @@ body {
 .glogo {
   height: 20px !important;
 }
+
+.login-container{
+  background-color: black;
+}
