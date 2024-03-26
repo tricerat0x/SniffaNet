@@ -5,20 +5,15 @@ seamless integration of additional tools and capabilities, making it adaptable t
 
 ## SniffaNet Pictures.
 
-<p align="center">
-!<img height="250px" scr="https://i.imgur.com/wCaZieL.png">
-</p>
+![Home](https://i.imgur.com/wCaZieL.png)
 The home page displays the about of the SniffaNet.
 
-<p align="center">
-!<img height="250px" scr="https://i.imgur.com/ohF9Cuc.png">
-</p>
+![Scan](https://i.imgur.com/ohF9Cuc.png)
 Scan shows the display name of the user, input of the IP Address to be scanned, and the scan button.
 
-<p align="center">
-!<img height="250px" scr="https://i.imgur.com/JXO24vD.png">
-</p>
+![Report_List](https://i.imgur.com/JXO24vD.png)
 Report List displays the list of IP Scans of SniffaNet, at this time there are no scan results.
+
 
 ### Libraries, Frameworks & Editors
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
