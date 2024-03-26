@@ -34,4 +34,4 @@ Report List displays the list of IP Scans of SniffaNet, at this time there are n
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 ### Wireframe 
-![SniffaTrello](https://trello.com/b/HEY8w2ZN/sniffanet)
+[SniffaTrello](https://trello.com/b/HEY8w2ZN/sniffanet)
